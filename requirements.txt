@@ -1,0 +1,34 @@
+# core
+numpy
+torch
+faiss-gpu
+faiss-cpu
+
+# llm providers
+openai
+tiktoken
+anthropic
+mistralai
+together
+groq
+
+# transformers (NEW)
+transformers
+sentencepiece
+protobuf
+safetensors
+
+# docs / io
+python-docx
+doc2docx
+tqdm
+
+# storage / speed
+ujson
+
+# git
+GitPython
+
+# (maybe) config
+pydantic
+pydantic-settings
