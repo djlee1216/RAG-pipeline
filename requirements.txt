@@ -2,7 +2,6 @@
 numpy
 torch
 faiss-gpu
-faiss-cpu
 
 # llm providers
 openai
