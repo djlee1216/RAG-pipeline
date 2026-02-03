@@ -3,6 +3,7 @@ import tiktoken
 from sentence_transformers import SentenceTransformer
 from functools import lru_cache
 import asyncio
+import os, openai
 
 import anthropic # type: ignore
 from mistralai.async_client import MistralAsyncClient
@@ -326,13 +327,14 @@ async def a_submit_prompt_flex(prompt, model="gpt-4o-mini", output_json=False):
     
     return output
 
-def embedding(input, dimension=1024):
-    client = openai.OpenAI(api_key="EMPTY", base_url="http://localhost:8001/v1")
-    response = client.embeddings.create(
-        input=input,
-        model="BAAI/bge-m3",
+def embedding(input):
+    client = openai.OpenAI(
+        api_key=os.getenv("OPENAI_API_KEY", "EMPTY"),
+        base_url=os.getenv("EMBEDDING_BASE_URL", "http://127.0.0.1:8001/v1"),
     )
-    return response
+    res = client.embeddings.create(input=input, model="BAAI/bge-m3")
+    return res.data[0].embedding
+
 
     # class _EmbeddingItem:
     #     def __init__(self, embedding):
