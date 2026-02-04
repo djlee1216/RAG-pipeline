@@ -1,9 +1,23 @@
+################################
 # core
+################################
 numpy
 torch
 faiss-cpu
 
-# llm providers
+################################
+# HF / Transformers (reranker 포함)
+################################
+transformers
+sentencepiece
+protobuf
+safetensors
+accelerate            # device_map="auto" 필수
+huggingface-hub       # HF_TOKEN / 모델 다운로드 안정화
+
+################################
+# LLM providers
+################################
 openai
 tiktoken
 anthropic
@@ -11,23 +25,23 @@ mistralai
 together
 groq
 
-# transformers (NEW)
-transformers
-sentencepiece
-protobuf
-safetensors
+################################
+# async / http (LLM client 내부용)
+################################
+requests
+aiohttp
 
-# docs / io
+################################
+# docs / io / utils
+################################
+tqdm
+ujson
 python-docx
 doc2docx
-tqdm
 
-# storage / speed
-ujson
-
-# git
+################################
+# git / config
+################################
 GitPython
-
-# (maybe) config
 pydantic
 pydantic-settings
