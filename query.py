@@ -5,17 +5,17 @@ import torch
 import traceback
 from tqdm.auto import tqdm
 from torch.utils.data import DataLoader, TensorDataset
-from src.retrieval import find_nearest_neighbors_faiss
-from src.index import get_faiss_batch_index
-from src.online_retrieval.pdf_reader import fetch_snippets_and_search
-from src.embeddings import get_embeddings
-from src.get_definitions import define_TA_question
-from src.input import get_documents
-from src.chunking import chunk_doc
-from src.LLMs.LLM import submit_prompt_flex, a_submit_prompt_flex, embedding
-from src.validator import validator_RAG
-from src.NNRouter import NNRouter
-from api.LLM import a_submit_prompt_flex_UI, submit_prompt_flex_UI
+from retrieval import find_nearest_neighbors_faiss
+from index import get_faiss_batch_index
+from pdf_reader import fetch_snippets_and_search
+from embeddings import get_embeddings
+from get_definitions import define_TA_question
+from input import get_documents
+from chunking import chunk_doc
+from LLM import submit_prompt_flex, a_submit_prompt_flex, embedding
+from validator import validator_RAG
+from NNRouter import NNRouter
+from LLM2 import a_submit_prompt_flex_UI, submit_prompt_flex_UI
 import json
 from pathlib import Path
 from typing import List, Dict
