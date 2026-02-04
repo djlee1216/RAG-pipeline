@@ -16,7 +16,7 @@ K_RETRIEVAL = 20   # FAISS에서 뽑는 후보 chunk 수
 K_CONTEXT   = 5    # LLM 프롬프트에 실제로 넣는 chunk 수
 
 INPUT_JSONL  = "3gpp_rag_eval_qa_100.jsonl"
-OUTPUT_JSONL = "3gpp_rag_eval_qa_100_open_answers.jsonl"
+OUTPUT_JSONL = "3gpp_rag_eval_qa_100_answers_baseline.jsonl"
 
 
 # =========================
