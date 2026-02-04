@@ -1,6 +1,6 @@
 import re
 import traceback
-from src.LLMs.LLM import submit_prompt_flex
+from LLM import submit_prompt_flex
 import logging
 
 def generate(question, model_name):
