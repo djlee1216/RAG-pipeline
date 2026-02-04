@@ -11,7 +11,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 from query import Query
 from generate import check_question  # 기존 유지
-from LLMs.LLM import submit_prompt_flex
+from LLM import submit_prompt_flex
 
 
 ############################################
