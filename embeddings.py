@@ -2,7 +2,7 @@ import logging
 import os
 import numpy as np
 import traceback
-from src.LLMs.LLM import embedding
+from LLM import embedding
 
 def get_embeddings_OpenAILarge_byapi(text):
     
