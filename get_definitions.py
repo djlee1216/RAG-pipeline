@@ -134,11 +134,22 @@ def get_def(sentence):
         defined.append(abbreviation[:3])
 
 def define_TA_question(sentence):
-    file_path = "/NAS/inno_aidev/users/djlee/3gpp_vocabulary"
-    terms_definitions, abbreviations_definitions = read_docx(file_path)
+    from pathlib import Path
+
+    # 1. 경로 설정: /NAS/ 대신 절대 경로 사용
+    BASE_DIR = Path(__file__).resolve().parent
+    # resources 폴더 자체를 넘겨도 read_docx가 내부 docx를 다 찾아 읽습니다.
+    RESOURCES_DIR = BASE_DIR / "resources" 
+    
+    # 2. 용어집 추출 (RESOURCES_DIR 내의 모든 docx 또는 특정 파일)
+    terms_definitions, abbreviations_definitions = read_docx(RESOURCES_DIR)
+    
+    # 3. 문장 내 용어/약어 매칭
     formatted_terms, formatted_abbreviations = find_terms_and_abbreviations_in_sentence(
         terms_definitions, abbreviations_definitions, sentence
     )
+    
+    # 4. 결과 조립 (enhanced_query 생성)
     terms = '\n'.join(formatted_terms)
     abbreviations = '\n'.join(formatted_abbreviations)
 
@@ -149,7 +160,6 @@ def define_TA_question(sentence):
 
 [Abbreviations]:
 {abbreviations}
-
 """
-    return question  #이게 enhanced_query가 되는거임.
+    return question
 
