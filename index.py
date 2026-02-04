@@ -3,7 +3,7 @@ import numpy as np
 import os
 import traceback
 import logging
-from src.LLMs.LLM import embedding
+from LLM import embedding
 os.environ['OMP_NUM_THREADS'] = '8'
 
 def search_faiss_index(faiss_index, query_embedding, k=5):
