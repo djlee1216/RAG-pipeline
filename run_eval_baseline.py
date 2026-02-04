@@ -15,8 +15,12 @@ MODEL_NAME = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 K_RETRIEVAL = 20   # FAISS에서 뽑는 후보 chunk 수
 K_CONTEXT   = 5    # LLM 프롬프트에 실제로 넣는 chunk 수
 
-INPUT_JSONL  = "3gpp_rag_eval_qa_100.jsonl"
-OUTPUT_JSONL = "3gpp_rag_eval_qa_100_answers_baseline.jsonl"
+BASE_DIR = Path(__file__).resolve().parent        # /djlee/repo
+INPUT_JSONL  = BASE_DIR / "3gpp_rag_eval_qa_100.jsonl"
+OUTPUT_DIR   = BASE_DIR.parent / "outputs"        # /djlee/outputs
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+OUTPUT_JSONL = OUTPUT_DIR / "3gpp_rag_eval_qa_100_answers_baseline.jsonl"
 
 
 # =========================
