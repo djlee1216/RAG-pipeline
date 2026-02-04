@@ -570,10 +570,10 @@ Add between paranthesis the retrieval (e.g. Retrieval 3) used for each reasoning
 ############################################
 # Main Pipeline
 ############################################
-def TelcoRAG(query_text, answer=None, options=None, model_name=GEN_MODEL):
+def TelcoRAG(query, answer=None, options=None, model_name=GEN_MODEL):
     try:
         # 1. 초기화 (Query 객체 생성)
-        question = Query(query_text, [])
+        question = Query(query, [])
         
         # 2. 용어 정제 (Enhanced Query 반영)
         # 이 메소드 호출로 Abbreviation.txt, glossary.txt, 3GPP_vocabulary.docx 등이 반영됩니다.
