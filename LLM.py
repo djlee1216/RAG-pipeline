@@ -199,7 +199,7 @@ def submit_prompt_flex(prompt, model="Qwen/Qwen3-30B-A3B-Instruct-2507", output_
             print(f"Model: {model_fullname}")
         client = openai.OpenAI(
             base_url="http://localhost:8000/v1",
-            api_key=any_api_key,
+            api_key="EMPTY",
         )
         generate = client.chat.completions.create
 
