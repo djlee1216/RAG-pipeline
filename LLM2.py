@@ -12,7 +12,7 @@ from together import AsyncTogether, Together
 
 import time
 
-from api.settings.config import get_settings
+from config import get_settings
 from groq import Groq, AsyncGroq
 
 import platform
