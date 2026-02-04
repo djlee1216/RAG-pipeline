@@ -4,8 +4,8 @@ import traceback
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from src.query import Query
-from src.generate import generate
+from query import Query
+from generate import generate
 
 # =========================
 # Config
