@@ -1,0 +1,54 @@
+{"id":1,"topic":"RRC 기초 및 상태","question":"RRC(Radio Resource Control)의 주요 역할 3가지는 무엇인가요?"}
+{"id":2,"topic":"RRC 기초 및 상태","question":"Access Stratum(AS) 계층 내에서 RRC는 어떤 하위 계층들과 통신하나요?"}
+{"id":3,"topic":"RRC 기초 및 상태","question":"RRC_IDLE, RRC_INACTIVE, RRC_CONNECTED 상태의 차이점을 각각 설명하세요."}
+{"id":4,"topic":"RRC 기초 및 상태","question":"RRC_INACTIVE 상태가 도입된 배경과 기존 RRC_IDLE 대비 장점은 무엇인가요?"}
+{"id":5,"topic":"RRC 기초 및 상태","question":"RRC_IDLE 상태에서 단말이 수행하는 Cell Selection은 어떤 기준(S-criteria)에 따라 이루어지나요?"}
+{"id":6,"topic":"RRC 기초 및 상태","question":"Paging 메시지는 어떤 RRC 상태의 단말을 대상으로 전달되나요?"}
+{"id":7,"topic":"RRC 기초 및 상태","question":"RRC_CONNECTED 상태에서 단말의 이동성 관리는 어떤 방식으로 수행되나요?"}
+{"id":8,"topic":"RRC 기초 및 상태","question":"RNA(RAN-based Notification Area)란 무엇이며 어느 RRC 상태에서 사용되나요?"}
+{"id":9,"topic":"RRC 기초 및 상태","question":"단말은 전력 소모를 줄이기 위해 RRC 상태 전이를 어떻게 활용하나요?"}
+{"id":10,"topic":"RRC 기초 및 상태","question":"RRC Connection Setup 과정에서 사용되는 SRB0, SRB1, SRB2의 차이점은 무엇인가요?"}
+
+{"id":11,"topic":"RRC 절차 및 메시지","question":"RRC Setup Request 메시지에는 어떤 주요 정보 요소들이 포함되나요?"}
+{"id":12,"topic":"RRC 절차 및 메시지","question":"System Information Block 중 SIB1은 어떤 역할을 수행하나요?"}
+{"id":13,"topic":"RRC 절차 및 메시지","question":"MIB(Master Information Block)는 어떤 물리 채널을 통해 전송되나요?"}
+{"id":14,"topic":"RRC 절차 및 메시지","question":"Handover 과정에서 RRC Reconfiguration 메시지가 수행하는 역할은 무엇인가요?"}
+{"id":15,"topic":"RRC 절차 및 메시지","question":"RRC Re-establishment 절차는 어떤 상황에서 트리거되나요?"}
+{"id":16,"topic":"RRC 절차 및 메시지","question":"Measurement Report를 트리거하는 Event A1~A6 중 대표적인 하나를 설명하세요."}
+{"id":17,"topic":"RRC 절차 및 메시지","question":"Measurement Event B1과 B2는 어떤 Inter-RAT 시나리오에서 사용되나요?"}
+{"id":18,"topic":"RRC 절차 및 메시지","question":"RRC 메시지 전송 시 무결성 보호(Integrity Protection)는 어느 계층에서 수행되나요?"}
+{"id":19,"topic":"RRC 절차 및 메시지","question":"On-demand SI(System Information) 요청 방식의 장점은 무엇인가요?"}
+{"id":20,"topic":"RRC 절차 및 메시지","question":"UE Capability Enquiry 메시지를 통해 기지국이 확인하려는 정보의 목적은 무엇인가요?"}
+
+{"id":21,"topic":"NAS 계층 및 프로토콜","question":"NAS(Non-Access Stratum) 계층은 단말과 어떤 5G Core 네트워크 노드 사이의 프로토콜인가요?"}
+{"id":22,"topic":"NAS 계층 및 프로토콜","question":"NAS의 두 서브 계층인 5GMM과 5GSM은 각각 어떤 기능을 담당하나요?"}
+{"id":23,"topic":"NAS 계층 및 프로토콜","question":"5GMM(Mobility Management)의 주요 기능에는 어떤 것들이 있나요?"}
+{"id":24,"topic":"NAS 계층 및 프로토콜","question":"5GSM(Session Management)이 관리하는 핵심 개체는 무엇인가요?"}
+{"id":25,"topic":"NAS 계층 및 프로토콜","question":"5G Initial Registration 절차는 LTE의 어떤 절차와 개념적으로 유사한가요?"}
+{"id":26,"topic":"NAS 계층 및 프로토콜","question":"NAS Security Mode Control 절차가 제공하는 두 가지 주요 보안 기능은 무엇인가요?"}
+{"id":27,"topic":"NAS 계층 및 프로토콜","question":"SUCI와 SUPI의 차이점과 이로 인한 보안상 이점은 무엇인가요?"}
+{"id":28,"topic":"NAS 계층 및 프로토콜","question":"AMF(Access and Mobility Management Function)의 NAS 관련 역할은 무엇인가요?"}
+{"id":29,"topic":"NAS 계층 및 프로토콜","question":"단말이 비활성 상태에서 위치 갱신을 위해 수행하는 NAS 절차는 무엇인가요?"}
+{"id":30,"topic":"NAS 계층 및 프로토콜","question":"NAS 계층에서 Deregistration이 발생하는 대표적인 시나리오는 무엇인가요?"}
+
+{"id":31,"topic":"RRC-NAS 상호작용","question":"NAS 메시지는 RRC 메시지의 어떤 부분에 캡슐화되어 전달되나요?"}
+{"id":32,"topic":"RRC-NAS 상호작용","question":"PDU Session 설정 과정에서 NAS와 RRC는 각각 어떤 설정을 담당하나요?"}
+{"id":33,"topic":"RRC-NAS 상호작용","question":"QoS Flow와 Data Radio Bearer(DRB)는 어떤 매핑 관계를 가지나요?"}
+{"id":34,"topic":"RRC-NAS 상호작용","question":"Service Request 절차가 시작되는 주요 트리거 조건은 무엇인가요?"}
+{"id":35,"topic":"RRC-NAS 상호작용","question":"단말이 5G Core에 접속하기 위해 가장 먼저 성공해야 하는 RRC 절차는 무엇인가요?"}
+{"id":36,"topic":"RRC-NAS 상호작용","question":"Tracking Area Update와 RRC 상태 변화 사이에는 어떤 상관관계가 있나요?"}
+{"id":37,"topic":"RRC-NAS 상호작용","question":"NAS Reject 메시지에 포함되는 Cause Code는 어떤 의미를 가지나요?"}
+{"id":38,"topic":"RRC-NAS 상호작용","question":"Slice 정보(S-NSSAI)는 RRC와 NAS 중 어느 계층에서 우선적으로 처리되나요?"}
+{"id":39,"topic":"RRC-NAS 상호작용","question":"Emergency Setup 상황에서 RRC와 NAS는 어떤 우선순위 처리 방식을 사용하나요?"}
+{"id":40,"topic":"RRC-NAS 상호작용","question":"Connection Establishment Failure 발생 시 NAS는 어떤 재시도 로직을 수행하나요?"}
+
+{"id":41,"topic":"실무 및 트러블슈팅","question":"RRC Connection Setup Failure의 주요 원인 3가지는 무엇인가요?"}
+{"id":42,"topic":"실무 및 트러블슈팅","question":"NAS 인증(Authentication) 실패 시 단말과 네트워크 간에 어떤 메시지가 교환되나요?"}
+{"id":43,"topic":"실무 및 트러블슈팅","question":"단말 로그에서 Radio Link Failure가 발생했을 때 RRC 계층의 동작은 어떻게 되나요?"}
+{"id":44,"topic":"실무 및 트러블슈팅","question":"Beam Failure Recovery와 RRC Re-establishment의 차이점은 무엇인가요?"}
+{"id":45,"topic":"실무 및 트러블슈팅","question":"NSA 모드와 SA 모드에서 RRC 메시지 구조의 주요 차이점은 무엇인가요?"}
+{"id":46,"topic":"실무 및 트러블슈팅","question":"5G NR에서 Anchoring 개념은 NAS 연결과 어떤 관계를 가지나요?"}
+{"id":47,"topic":"실무 및 트러블슈팅","question":"가입자 식별 문제가 발생했을 때 NAS 계층에서 확인해야 할 주요 파라미터는 무엇인가요?"}
+{"id":48,"topic":"실무 및 트러블슈팅","question":"Handover 실패로 인한 Ping-pong 현상을 방지하기 위해 사용하는 RRC 파라미터는 무엇인가요?"}
+{"id":49,"topic":"실무 및 트러블슈팅","question":"Connected Mode DRX 설정은 어느 계층에서 이루어지며 전력 효율에 어떤 영향을 주나요?"}
+{"id":50,"topic":"실무 및 트러블슈팅","question":"AMF 변경이 발생할 때 수행되는 NAS 절차의 특징은 무엇인가요?"}
