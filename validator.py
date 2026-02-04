@@ -1,8 +1,8 @@
 
 import concurrent.futures
 import time
-from src.LLMs.LLM import submit_prompt_flex
-from api.LLM import submit_prompt_flex_UI
+from LLM import submit_prompt_flex
+from LLM2 import submit_prompt_flex_UI
 
 def LLM_validator_snippet(paragraph, query, model_name):
     input_prompt = f"""You are an telecom expert and you are given the following snippet that describes the content of a document.
