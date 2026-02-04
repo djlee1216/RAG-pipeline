@@ -445,8 +445,8 @@ from LLM import submit_prompt_flex
 GEN_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 RERANK_MODEL = "BAAI/bge-reranker-large"
 
-K_RETRIEVAL = 20    # 1차 FAISS 검색 개수
-TOP_K_RERANK = 5    # 2차 리랭크 최종 선택 개수
+K_RETRIEVAL = 20    # 1차 FAISS 검색 개수 (후보군)
+TOP_K_RERANK = 5    # 2차 리랭크 최종 선택 개수 (LLM 전달용)
 BATCH_SIZE = 8
 MAX_LENGTH = 512
 
@@ -459,20 +459,6 @@ def _preview(text: str, n: int = 320) -> str:
 
 def _get_hf_token() -> Optional[str]:
     return os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_HUB_TOKEN")
-
-def build_blocks_from_retrievals(retrievals: List[Dict[str, Any]]) -> str:
-    blocks = ["The retrieved context provided to the LLM is:"]
-    for r in retrievals:
-        rank = int(r.get("rank", 0))
-        stype = r.get("source_type", "unknown")
-        score = float(r.get("score", 0.0))
-        meta = r.get("meta", {}) or {}
-        rid = meta.get("id", rank)
-        text = r.get("text") or r.get("preview") or ""
-        blocks.append(
-            f"[Retrieval {rank}] (score={score:.4f}, type={stype}, id={rid})\n{text}\n"
-        )
-    return "\n".join(blocks).strip()
 
 ############################################
 # Reranker (BAAI/bge-reranker-large)
@@ -488,20 +474,12 @@ def reranker(
     save_json: bool = True,
     json_path: str = "rerank_report.json",
     print_moves: bool = True,
-    print_topk: bool = True,
-    filter_type: Optional[str] = None,
 ) -> Dict[str, Any]:
 
     if not retrievals:
-        raise ValueError("retrievals is empty.")
+        raise ValueError("retrievals is empty. Ensure 1st retrieval step is working.")
 
-    if filter_type is not None:
-        ft = filter_type.lower()
-        retrievals = [r for r in retrievals if (r.get("source_type", "").lower() == ft)]
-        if not retrievals:
-            raise ValueError(f"No retrievals left after filter_type='{filter_type}'.")
-
-    # 1) 기존 리트리벌 결과에서 텍스트 추출
+    # 1) 기존 리트리벌 결과 파싱
     items = []
     for r in retrievals:
         items.append({
@@ -509,11 +487,11 @@ def reranker(
             "retrieval_score": r.get("score"),
             "type": r.get("source_type"),
             "id": r.get("meta", {}).get("id", 0),
-            "text": r.get("preview") or "", # Query 클래스에서 저장한 preview/text 사용
+            "text": r.get("text") or r.get("preview") or "",
             "meta": r.get("meta", {})
         })
 
-    # 2) Reranker 로드
+    # 2) Reranker 로드 (BGE-Reranker)
     hf_token = _get_hf_token()
     tokenizer = AutoTokenizer.from_pretrained(reranker_model, use_fast=True, token=hf_token)
     model = AutoModelForSequenceClassification.from_pretrained(
@@ -525,7 +503,7 @@ def reranker(
     model.eval()
     device = next(model.parameters()).device
 
-    # 3) Scoring
+    # 3) Scoring pairs (query, passage)
     passages = [x["text"] for x in items]
     rerank_scores = []
     with torch.no_grad():
@@ -542,45 +520,44 @@ def reranker(
     reranked = sorted(items, key=lambda x: x["rerank_score"], reverse=True)
     topk_items = reranked[:top_k]
 
-    # 5) 결과 구조화 (Question.retrievals 형식에 맞춤)
+    # 5) 결과 구조화
     retrievals_struct = []
     topk_list_for_gen = []
     for i, x in enumerate(topk_items, start=1):
-        # LLM 입력용 텍스트 리스트
         topk_list_for_gen.append(f"[Retrieval {i}] (score={x['rerank_score']:.4f}, type={x['type']})\n{x['text']}\n")
-        
-        # 구조화된 데이터 (print용)
         retrievals_struct.append({
             "rank": i,
             "source_type": x["type"],
             "score": x["rerank_score"],
-            "preview": x["text"],
+            "preview": _preview(x["text"], 500),
             "meta": {**x["meta"], "old_rank": x["old_rank"], "new_rank": i}
         })
 
-    return {
-        "topk_list": topk_list_for_gen,
-        "retrievals": retrievals_struct
-    }
+    if save_json:
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump({"query": query, "top_k": retrievals_struct}, f, ensure_ascii=False, indent=2)
+
+    return {"topk_list": topk_list_for_gen, "retrievals": retrievals_struct}
 
 ############################################
-# Generate (Top-5만 사용하도록 보장)
+# Generate (Reranked Context만 사용)
 ############################################
 def generate_for_rerank(question, context_rerank: List[str], model_name: str):
     try:
-        content = "\n".join(context_rerank) # 리랭크된 5개만 합쳐짐
-
+        content = "\n".join(context_rerank)
+        # 룰을 명확히 전달하는 프롬프트
         prompt = f"""
-Identify exactly what the question is asking and provide a focused response.
-Do not include irrelevant information.
+Rule 1. Identify exactly what the question is asking and provide a focused response.
+Rule 2. Even if information is present in the context, do not include it if it is irrelevant.
 
-Question:
-{question.query}
-
-Context:
+[Context]
 {content}
 
-Answer (mention Retrieval number used):
+[Question]
+{question.query}
+
+Please answer the question based on the context above. 
+Add between paranthesis the retrieval (e.g. Retrieval 3) used for each reasoning.
 """.strip()
 
         predicted_answers_str = submit_prompt_flex(prompt, model=model_name)
@@ -591,55 +568,58 @@ Answer (mention Retrieval number used):
         return None, None
 
 ############################################
-# Print (사용자 스타일 유지)
-############################################
-def print_topk_and_answer(question, response, k=5):
-    print("\n" + "="*60)
-    print(f"[Top-{k} Reranked Contexts]")
-    for r in question.retrievals[:k]:
-        meta = r.get("meta", {})
-        print(f"({r['rank']}) [{r['source_type'].upper()}] (Score: {r['score']:.4f}, Old Rank: {meta.get('old_rank')})")
-        print(f"    {r['preview'][:300]}...\n")
-    print("="*60)
-    print("Answer:\n")
-    print(response)
-    print("="*60 + "\n")
-
-############################################
 # Main Pipeline
 ############################################
-def TelcoRAG(query, answer=None, options=None, model_name=GEN_MODEL):
+def TelcoRAG(query_text, answer=None, options=None, model_name=GEN_MODEL):
     try:
-        # 1. 초기화 및 리트리벌 (20개)
-        question = Query(query, [])
-        question.def_TA_question()
+        # 1. 초기화 (Query 객체 생성)
+        question = Query(query_text, [])
+        
+        # 2. 용어 정제 (Enhanced Query 반영)
+        # 이 메소드 호출로 Abbreviation.txt, glossary.txt, 3GPP_vocabulary.docx 등이 반영됩니다.
+        print(f"\n🔍 [1/4] Refining query with terms & definitions...")
+        question.def_TA_question() 
+        
+        # 정제된 쿼리를 검색 엔진에 전달할 쿼리로 설정
+        question.question = question.enhanced_query 
+        print(f"✨ Enhanced Query:\n{question.question[:500]}...")
+
+        # 3. 1차 검색 (FAISS에서 20개 추출)
+        print(f"📡 [2/4] Retrieving top-{K_RETRIEVAL} chunks from FAISS...")
         question.get_3GPP_context(k=K_RETRIEVAL)
 
-        if not getattr(question, "retrievals", None):
-            raise ValueError("Retrieval failed: No candidates found.")
+        if not getattr(question, "retrievals", None) or len(question.retrievals) == 0:
+            raise ValueError("No retrievals found during the first search step.")
 
-        # 2. 리랭커 실행 (20개 -> 5개)
-        print(f"[INFO] Reranking {len(question.retrievals)} candidates...")
-        out = reranker(query=question.query, retrievals=question.retrievals, top_k=TOP_K_RERANK)
+        # 4. 리랭크 (20개 -> 5개)
+        print(f"🔄 [3/4] Reranking candidates with {RERANK_MODEL}...")
+        out = reranker(query=question.question, retrievals=question.retrievals, top_k=TOP_K_RERANK)
 
-        # 3. ★ 핵심: 20개였던 context를 리랭크된 5개로 교체 ★
-        question.retrievals = out["retrievals"] 
-        question.context = out["topk_list"]     
+        # ★ 핵심: question 객체의 context를 리랭크된 5개로 교체 ★
+        question.retrievals = out["retrievals"]
+        question.context = out["topk_list"]
 
-        # 4. 답변 생성 (교체된 5개만 사용)
+        # 5. 최종 답변 생성 (정제된 쿼리 + 리랭크된 컨텍스트)
+        print(f"✍️ [4/4] Generating final answer with {model_name}...")
         response, context_used = generate_for_rerank(question, question.context, model_name)
 
-        # 5. 출력
-        print_topk_and_answer(question, response, k=TOP_K_RERANK)
+        # 6. 결과 출력 (커스텀 스타일)
+        print("\n" + "="*80)
+        print(f"FINAL ANSWER (Top-{TOP_K_RERANK} Reranked)")
+        print("-" * 80)
+        print(response)
+        print("="*80 + "\n")
+
         return response, context_used
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"❌ Error occurred in TelcoRAG: {e}")
         traceback.print_exc()
         return None, None
 
 if __name__ == "__main__":
     while True:
-        user_q = input("질문을 입력하세요 (q: 종료): ").strip()
-        if user_q.lower() in ('q', 'exit'): break
-        TelcoRAG(user_q)
+        user_input = input("Enter your question (q to quit): ").strip()
+        if user_input.lower() in ('q', 'quit', 'exit'):
+            break
+        TelcoRAG(user_input)
