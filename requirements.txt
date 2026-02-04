@@ -16,6 +16,10 @@ accelerate            # device_map="auto" 필수
 huggingface-hub       # HF_TOKEN / 모델 다운로드 안정화
 sentence-transformers>=2.2.2
 toml>=0.10.2
+dynaconf>=3.2.4
+pdfplumber>=0.10.3
+rank-bm25>=0.2.2
+bitsandbytes>=0.43.0
 
 
 
