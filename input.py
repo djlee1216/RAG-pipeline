@@ -2,7 +2,7 @@ import os
 from tqdm.auto import tqdm
 from doc2docx import convert
 from docx import Document
-from src.storage import Storage
+from storage import Storage
 import logging
 
 def read_docx(file_path):
