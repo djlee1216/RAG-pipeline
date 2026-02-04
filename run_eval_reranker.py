@@ -1,5 +1,3 @@
-
-### reranker 추가된 코드용 ###
 import json
 import time
 import traceback
@@ -10,8 +8,15 @@ from typing import Dict, Any
 from pipeline_offline_addreranker import TelcoRAG, GEN_MODEL
 
 
-INPUT_JSONL  = "3gpp_rag_eval_qa_100.jsonl"
-OUTPUT_JSONL = "3gpp_rag_eval_qa_100_answers_reranker.jsonl"
+# ===============================
+# VESSL 경로 설정 (중요)
+# ===============================
+BASE_DIR = Path(__file__).resolve().parent        # /djlee/repo
+INPUT_JSONL  = BASE_DIR / "3gpp_rag_eval_qa_100.jsonl"
+OUTPUT_DIR   = BASE_DIR.parent / "outputs"        # /djlee/outputs
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+OUTPUT_JSONL = OUTPUT_DIR / "3gpp_rag_eval_qa_100_answers_reranker.jsonl"
 
 
 def answer_one_open(item: Dict[str, Any]) -> Dict[str, Any]:
@@ -34,7 +39,8 @@ def answer_one_open(item: Dict[str, Any]) -> Dict[str, Any]:
     result = {
         "question": question,
         "answer": answer,
-        "context_used": context_used,   # rerank top-5
+        "context_used": context_used,
+        "latency_sec": elapsed,
     }
 
     # 원본 메타 보존 (있으면)
@@ -46,14 +52,14 @@ def answer_one_open(item: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def main():
-    in_path = Path(INPUT_JSONL)
-    out_path = Path(OUTPUT_JSONL)
+    if not INPUT_JSONL.exists():
+        raise FileNotFoundError(f"Input not found: {INPUT_JSONL}")
 
-    if not in_path.exists():
-        raise FileNotFoundError(in_path.resolve())
+    print(f"[INFO] Input : {INPUT_JSONL}")
+    print(f"[INFO] Output: {OUTPUT_JSONL}")
 
-    with in_path.open("r", encoding="utf-8") as fin, \
-         out_path.open("a", encoding="utf-8") as fout:
+    with INPUT_JSONL.open("r", encoding="utf-8") as fin, \
+         OUTPUT_JSONL.open("a", encoding="utf-8") as fout:
 
         for idx, line in enumerate(fin, start=1):
             line = line.strip()
@@ -96,7 +102,7 @@ def main():
                 fout.flush()
                 print(f"[{idx}] ERROR: {e}")
 
-    print(f"\n✅ Saved results to: {out_path.resolve()}")
+    print(f"\n✅ Saved results to: {OUTPUT_JSONL.resolve()}")
 
 
 if __name__ == "__main__":
