@@ -6,7 +6,7 @@ from PyPDF2 import PdfReader
 from io import BytesIO
 from docx import Document
 from copy import deepcopy
-from src.validator import validator_online
+from validator import validator_online
 from fake_useragent import UserAgent
 
 
