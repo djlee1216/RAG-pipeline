@@ -1,4 +1,4 @@
-from src.online_retrieval.google_page import fetch_all_snippets
+from google_page import fetch_all_snippets
 import os
 import asyncio
 import string
