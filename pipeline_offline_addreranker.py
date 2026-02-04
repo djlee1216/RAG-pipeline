@@ -9,9 +9,9 @@ from typing import List, Dict, Any, Optional
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-from src.query import Query
-from src.generate import check_question  # 기존 유지
-from src.LLMs.LLM import submit_prompt_flex
+from query import Query
+from generate import check_question  # 기존 유지
+from LLMs.LLM import submit_prompt_flex
 
 
 ############################################
