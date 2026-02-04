@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import traceback
-from src.LLMs.LLM import embedding
+from LLM import embedding
 import logging
 
 def search_faiss_index(faiss_index, query_embedding, k=5):
