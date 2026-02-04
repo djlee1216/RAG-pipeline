@@ -15,6 +15,8 @@ safetensors
 accelerate            # device_map="auto" 필수
 huggingface-hub       # HF_TOKEN / 모델 다운로드 안정화
 sentence-transformers>=2.2.2
+toml>=0.10.2
+
 
 
 ################################
