@@ -5,29 +5,53 @@ anthropic
 
 ########### B ############
 bitsandbytes>=0.43.0
+
+########### D ############
 doc2docx
 dynaconf>=3.2.4
+
+########### F ############
 faiss-cpu
+
+########### G ############
 GitPython
 groq
+
+########### H ############
 huggingface-hub
+
+########### M ############
 mistralai
+
+########### N ############
 numpy
+
+########### O ############
 openai
+
+########### P ############
 pdfplumber>=0.10.3
 protobuf
 pydantic
 pydantic-settings
 python-docx
+
+########### R ############
 rank-bm25>=0.2.2
 requests
+
+########### S ############
 safetensors
 sentence-transformers>=2.2.2
 sentencepiece
+
+########### T ############
 tiktoken
 toml>=0.10.2
 torch
 together
 tqdm
 transformers
+
+########### U ############
 ujson
