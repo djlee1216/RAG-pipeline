@@ -4,7 +4,6 @@ import traceback
 from pathlib import Path
 from typing import Dict, Any
 
-# ✅ 네 pipeline 그대로 import
 from pipeline_offline_addreranker import TelcoRAG, GEN_MODEL
 
 
