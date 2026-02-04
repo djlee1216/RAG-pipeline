@@ -14,7 +14,7 @@ from together import AsyncTogether, Together
 
 import time
 
-from src.LLMs.settings.config import get_settings
+from config import get_settings
 from groq import Groq, AsyncGroq
 
 import platform
