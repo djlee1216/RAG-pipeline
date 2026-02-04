@@ -5,6 +5,8 @@ anthropic
 
 ########### B ############
 bitsandbytes>=0.43.0
+beautifulsoup4>=4.8.2
+
 
 ########### D ############
 doc2docx
