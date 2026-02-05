@@ -590,7 +590,7 @@ def TelcoRAG(query, answer=None, options=None, model_name=GEN_MODEL):
 
         # 4. 리랭크 (20개 -> 5개)
         print(f"🔄 [3/4] Reranking candidates with {RERANK_MODEL}...")
-        out = reranker(query=question.question, retrievals=question.retrievals, top_k=TOP_K_RERANK)
+        out = reranker(query=query, retrievals=question.retrievals, top_k=TOP_K_RERANK)
 
         # ★ 핵심: question 객체의 context를 리랭크된 5개로 교체 ★
         question.retrievals = out["retrievals"]
