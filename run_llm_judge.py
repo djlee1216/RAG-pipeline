@@ -5,7 +5,7 @@ import numpy as np
 
 # 절대 경로 설정
 INPUT_PATH = "/djlee/outputs/3gpp_rag_eval_qa_100_answers_reranker.jsonl"
-OUTPUT_PATH = "/djlee/outputs/3gpp_rag_eval_final_scored.jsonl"
+OUTPUT_PATH = "/djlee/outputs/3gpp_rag_eval_reranker_score.jsonl"
 API_URL = "http://localhost:8000/v1/chat/completions"
 
 def get_critique_score(question, answer):
