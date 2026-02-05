@@ -8,7 +8,6 @@
 {"id":8,"topic":"RRC 기초 및 상태","question":"What is the RAN-based Notification Area (RNA), and in which RRC state is it used?"}
 {"id":9,"topic":"RRC 기초 및 상태","question":"How does a UE utilize RRC state transitions to reduce power consumption?"}
 {"id":10,"topic":"RRC 기초 및 상태","question":"What are the differences between SRB0, SRB1, and SRB2 used during the RRC Connection Setup procedure?"}
-
 {"id":11,"topic":"RRC 절차 및 메시지","question":"What key information elements are included in the RRC Setup Request message?"}
 {"id":12,"topic":"RRC 절차 및 메시지","question":"What role does SIB1 play among the System Information Blocks?"}
 {"id":13,"topic":"RRC 절차 및 메시지","question":"Through which physical channel is the MIB (Master Information Block) transmitted?"}
@@ -19,7 +18,6 @@
 {"id":18,"topic":"RRC 절차 및 메시지","question":"At which layer is integrity protection performed for RRC message transmission?"}
 {"id":19,"topic":"RRC 절차 및 메시지","question":"What are the advantages of the on-demand System Information (SI) request mechanism?"}
 {"id":20,"topic":"RRC 절차 및 메시지","question":"What is the purpose of the information that a base station seeks to obtain through the UE Capability Enquiry message?"}
-
 {"id":21,"topic":"NAS 계층 및 프로토콜","question":"Between the UE and which 5G Core network node(s) does the NAS (Non-Access Stratum) protocol operate?"}
 {"id":22,"topic":"NAS 계층 및 프로토콜","question":"What functions are handled by the two NAS sublayers, 5GMM and 5GSM, respectively?"}
 {"id":23,"topic":"NAS 계층 및 프로토콜","question":"What are the main functions of 5GMM (Mobility Management)?"}
@@ -30,7 +28,6 @@
 {"id":28,"topic":"NAS 계층 및 프로토콜","question":"What is the role of the AMF (Access and Mobility Management Function) with respect to NAS?"}
 {"id":29,"topic":"NAS 계층 및 프로토콜","question":"Which NAS procedure does a UE perform for location update while in the inactive state?"}
 {"id":30,"topic":"NAS 계층 및 프로토콜","question":"What are representative scenarios in which Deregistration occurs at the NAS layer?"}
-
 {"id":31,"topic":"RRC-NAS 상호작용","question":"In which part of an RRC message are NAS messages encapsulated for delivery?"}
 {"id":32,"topic":"RRC-NAS 상호작용","question":"During the PDU Session establishment process, which configurations are handled by NAS and which by RRC, respectively?"}
 {"id":33,"topic":"RRC-NAS 상호작용","question":"What mapping relationship exists between QoS Flows and Data Radio Bearers (DRBs)?"}
@@ -41,7 +38,6 @@
 {"id":38,"topic":"RRC-NAS 상호작용","question":"At which layer—RRC or NAS—is slice information (S-NSSAI) primarily processed?"}
 {"id":39,"topic":"RRC-NAS 상호작용","question":"In an Emergency Setup scenario, how are priorities handled by RRC and NAS?"}
 {"id":40,"topic":"RRC-NAS 상호작용","question":"When a Connection Establishment Failure occurs, what retry logic is performed by NAS?"}
-
 {"id":41,"topic":"실무 및 트러블슈팅","question":"What are three major causes of RRC Connection Setup Failure?"}
 {"id":42,"topic":"실무 및 트러블슈팅","question":"Which messages are exchanged between the UE and the network when NAS authentication fails?"}
 {"id":43,"topic":"실무 및 트러블슈팅","question":"How does the RRC layer behave when a Radio Link Failure is observed in UE logs?"}
@@ -52,4 +48,3 @@
 {"id":48,"topic":"실무 및 트러블슈팅","question":"Which RRC parameters are used to prevent ping-pong effects caused by handover failures?"}
 {"id":49,"topic":"실무 및 트러블슈팅","question":"At which layer is Connected Mode DRX configured, and how does it affect power efficiency?"}
 {"id":50,"topic":"실무 및 트러블슈팅","question":"What are the characteristics of the NAS procedure performed when an AMF change occurs?"}
-
