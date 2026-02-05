@@ -13,6 +13,7 @@ def generate(question, model_name):
                 Rule 1. The answer must not exceed 1,000 characters.
                 Rule 2. Identify exactly what the question is asking and provide a focused response.
                 Rule 3. Use ONLY given context to answer the question. 
+                Rule 4. 질문의 언어와는 상관없이 답변은 반드시 한국어로 생성할 것. 
                 
 Please answer the following question:
 {question.query}
