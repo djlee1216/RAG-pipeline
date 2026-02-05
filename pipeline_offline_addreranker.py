@@ -448,7 +448,7 @@ RERANK_MODEL = "BAAI/bge-reranker-large"
 K_RETRIEVAL = 20    # 1차 FAISS 검색 개수 (후보군)
 TOP_K_RERANK = 5    # 2차 리랭크 최종 선택 개수 (LLM 전달용)
 BATCH_SIZE = 8
-MAX_LENGTH = 512
+MAX_LENGTH = 1024
 
 ############################################
 # Utils
@@ -547,9 +547,6 @@ def generate_for_rerank(question, context_rerank: List[str], model_name: str):
         content = "\n".join(context_rerank)
         # 룰을 명확히 전달하는 프롬프트
         prompt = f"""
-Rule 1. Identify exactly what the question is asking and provide a focused response.
-Rule 2. Even if information is present in the context, do not include it if it is irrelevant.
-
 [Context]
 {content}
 
