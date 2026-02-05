@@ -443,7 +443,7 @@ from LLM import submit_prompt_flex
 # Models & Config
 ############################################
 GEN_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
-RERANK_MODEL = "BAAI/bge-reranker-large"
+RERANK_MODEL = "BAAI/bge-reranker-v2-m3"
 
 K_RETRIEVAL = 20    # 1차 FAISS 검색 개수 (후보군)
 TOP_K_RERANK = 5    # 2차 리랭크 최종 선택 개수 (LLM 전달용)
